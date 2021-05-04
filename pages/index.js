@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Chat App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
