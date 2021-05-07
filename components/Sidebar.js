@@ -21,20 +21,20 @@ function Sidebar() {
 
         if(!input) return null;
 
-        if(EmailValidator.validate(input) && !chatAlreadyExists(input)  && input !== user.email) {
+        if(EmailValidator.validate(input) && !chatAlreadyExists(input) && input !== user.email) {
             db.collection('chats').add({
                 users: [user.email, input],
             })
         }
     }
 
-    const chatAlreadyExists = (recipientEmail) => !!chatSnapshot?.docs.find(chat => chat.data().user.find(user => user === recipientEmail)?.length > 0)
+    const chatAlreadyExists = (recipientEmail) => !!chatSnapshot?.docs.find(chat => chat.data().users.find(user => user === recipientEmail)?.length > 0)
     
 
     return (
         <>
-            <div>
-                <header className="flex sticky top-0 bg-white z-[1] justify-between items-center p-5 h-[80px] border-b-2 border-fuchsia-600">
+            <div className="flex-1 border-r-1 h-screen min-w-min max-w-xs overflow-y-scroll">
+                <header className="flex h-24 sticky top-0 bg-white z-[1] justify-between items-center p-5 h-[80px] border-b-2 border-fuchsia-600">
                     <Avatar src={user.photoURL} onClick={() => auth.signOut()} className="cursor-pointer opacity-100 hover:opacity-80" />
                     <div>
                         <IconButton>
