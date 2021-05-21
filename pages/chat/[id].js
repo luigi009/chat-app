@@ -18,7 +18,7 @@ function Chat({ chat, messages }) {
                     <title>Chat with {getRecipientEmail(chat.users, user)}</title>
                 </Head>
                 <Sidebar />
-                <div className="flex-1 overflow-scroll h-screen">
+                <div className="showMessages flex-1 overflow-x-hidden h-screen">
                     <ChatScreen chat={chat} messages={messages} />
                 </div>
             </div>

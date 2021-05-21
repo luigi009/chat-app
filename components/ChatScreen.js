@@ -19,16 +19,16 @@ function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("")
     const router = useRouter();
-    const [messagesSnapshot] = useCollection(db.collection("chats").doc(router.query.id).collection("messages").orderBy("timestamp", "asc"))
+    const [messagesSnapshot] = useCollection(db.collection('chats').doc(router.query.id).collection("messages").orderBy('timestamp', "asc"))
     const [recipientSnapshot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(chat.users, user)))
 
     const showMessages = () => {
         if (messagesSnapshot) {
-            return messagesSnapshot.docs.map( message => (
+            return messagesSnapshot.docs.map((message) => (
                 <Message key={message.id} user={message.data().user} message={{...message.data(), timestamp: message.data().timestamp?.toDate().getTime(),}} ></Message>
             ))
         } else {
-            return JSON.parse(messages).map(message => (
+            return JSON.parse(messages).map((message) => (
                 <Message key={message.id} user={message.user} message={message} />
             ))
         }
@@ -48,7 +48,7 @@ function ChatScreen({ chat, messages }) {
             lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
         }, {merge: true});
 
-        db.collection('chat').doc(router.query.id).collection('messages').add({
+        db.collection('chats').doc(router.query.id).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             message: input,
             user: user.email,
@@ -65,14 +65,14 @@ function ChatScreen({ chat, messages }) {
     return (
         <>
             <div>
-                <header className="flex p-4 sticky top-0 bg-white z-[100] h-24 items-center border-b-2 border-fuchsia-600">
+                <header className="flex p-4 sticky top-0 bg-white z-50 h-24 items-center border-b-2 border-fuchsia-600">
                     {recipient ? (<Avatar src={recipient?.photoURL} />) : (<Avatar>{recipientEmail[0]}</Avatar>)}
 
                     <div className="flex-1 ml-5">
-                        <h3 className="mb-2">{recipientEmail}</h3>
-                        {recipientSnapshot ? (<p>Last active: {''} {recipient?.lastSeen?.toDate() ? (<TimeAgo datetime={recipient?.lastSeen?.toDate()} />) : "Unavailable"}</p>) : (<p>Loading Last active...</p>)}
+                        <h3 className="mb-2 font-bold">{recipientEmail}</h3>
+                        {recipientSnapshot ? (<p className="text-base text-gray-500">Last active: {''} {recipient?.lastSeen?.toDate() ? (<TimeAgo datetime={recipient?.lastSeen?.toDate()} />) : "Unavailable"}</p>) : (<p>Loading Last active...</p>)}
                     </div>
-                    <div className="">
+                    <div className="flex-initial ml-4">
                         <IconButton>
                             <AttachFileIcon />
                         </IconButton>
@@ -82,14 +82,14 @@ function ChatScreen({ chat, messages }) {
                     </div>
                 </header>
 
-                <div className="p-5 bg-yellow-100" style={{minHeight: "90vh"}}>
+                <div className="p-5 overflow-y-hidden" style={{minHeight: "90vh", backgroundColor: "#e5dfd9"}}>
                     {showMessages()}
                     <div className="mb-5" ref={endOfMessagesRef} />
                 </div>
 
-                <form className="flex items-center p-3 sticky b-0 bg-white z-[100]">
+                <form className="flex items-center p-3 sticky bottom-0 bg-white z-50">
                     <InsertEmoticon />
-                    <input value={input} onChange={e => setInput(e.target.value)} className="flex-1 items-center p-5 sticky b-0 bg-gray-200 mr-5 ml-5" />
+                    <input value={input} onChange={e => setInput(e.target.value)} className="flex-1 items-center p-5 sticky bottom-0 bg-gray-200 mr-5 ml-5" />
                     <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
                     <MicIcon />
                 </form>

@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
+.container-sideBar::-webkit-scrollbar {
     display: none;
+}
+
+.container-sideBar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.showMessages::-webkit-scrollbar {
+    display: none;
+}
+
+.showMessages {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }

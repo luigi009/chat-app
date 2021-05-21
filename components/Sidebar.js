@@ -33,7 +33,7 @@ function Sidebar() {
 
     return (
         <>
-            <div className="flex-1 border-r-1 h-screen min-w-min max-w-xs overflow-y-scroll">
+            <div className="container-sideBar flex-1 border-r-1 h-screen min-w-min max-w-xs">
                 <header className="flex h-24 sticky top-0 bg-white z-[1] justify-between items-center p-5 h-[80px] border-b-2 border-fuchsia-600">
                     <Avatar src={user.photoURL} onClick={() => auth.signOut()} className="cursor-pointer opacity-100 hover:opacity-80" />
                     <div>
