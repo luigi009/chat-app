@@ -47,11 +47,11 @@ function Sidebar() {
                 </header>
 
                 <div>
-                    <div className="flex items-center p-6 rounded-full">
-                        <SearchIcon />
-                        <input className="outline-none border-none flex-1" placeholder="Search in chats" />
+                    <div className="flex items-center p-3 m-4 rounded-full bg-gray-200">
+                        <SearchIcon className="mr-4" />
+                        <input className="outline-none border-none flex-1 bg-gray-200" placeholder="Search in chats" />
                     </div>
-                    <div className="p-6 pt-1">
+                    <div className="p-6 pt-1 flex items-center justify-center">
                         <Button className="w-100" onClick={createChat}>Start a new chat</Button>
                     </div>
                 </div>

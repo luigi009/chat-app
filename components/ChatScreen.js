@@ -8,6 +8,8 @@ import AttachFileIcon from '@material-ui/icons/AttachFile'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import Message from './Message';
 import { InsertEmoticon } from '@material-ui/icons';
+import SearchIcon from '@material-ui/icons/Search';
+import SendIcon from '@material-ui/icons/Send';
 import MicIcon from '@material-ui/icons/Mic'
 import firebase from 'firebase'
 import getRecipientEmail from '../utils/getRecipientEmail';
@@ -74,7 +76,7 @@ function ChatScreen({ chat, messages }) {
                     </div>
                     <div className="flex-initial ml-4">
                         <IconButton>
-                            <AttachFileIcon />
+                            <SearchIcon />
                         </IconButton>
                         <IconButton>
                             <MoreVertIcon />
@@ -82,16 +84,22 @@ function ChatScreen({ chat, messages }) {
                     </div>
                 </header>
 
-                <div className="p-5 overflow-y-hidden" style={{minHeight: "90vh", backgroundColor: "#e5dfd9"}}>
+                <div className="p-5 overflow-y-hidden" style={{minHeight: "100vh", backgroundColor: "#e5dfd9"}}>
                     {showMessages()}
                     <div className="mb-5" ref={endOfMessagesRef} />
                 </div>
 
-                <form className="flex items-center p-3 sticky bottom-0 bg-white z-50">
-                    <InsertEmoticon />
-                    <input value={input} onChange={e => setInput(e.target.value)} className="flex-1 items-center p-5 sticky bottom-0 bg-gray-200 mr-5 ml-5" />
-                    <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-                    <MicIcon />
+                <form className="flex items-center p-3 sticky bottom-0 bg-gray-100 z-50">
+                    <IconButton>
+                        <InsertEmoticon className="text-black" />
+                    </IconButton>
+                    <IconButton>
+                        <AttachFileIcon className="text-black" />
+                    </IconButton>
+                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message..." className="flex-1 items-center p-5 sticky bottom-0 bg-white mr-5 ml-5 rounded-full" />
+                    <button disabled={!input} type="submit" onClick={sendMessage}>
+                        {!input ? <IconButton><MicIcon id="micIcon" className="text-black" /></IconButton> : <IconButton><SendIcon className="text-black" /></IconButton>}
+                    </button>
                 </form>
             </div>
         </>

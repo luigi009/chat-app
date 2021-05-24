@@ -12,8 +12,9 @@ function Message({ user, message }) {
     return (
         <>
             <div>
-                <TypeOfMessage>{message.message}
-                    <Timestamp>{message.timestamp ? moment(message.timestamp).format("LT") : "..."}</Timestamp>
+                <TypeOfMessage>
+                    {message.message}
+                    <Timestamp className="flex">{message.timestamp ? moment(message.timestamp).format("LT") : "..."}</Timestamp>
                 </TypeOfMessage>
             </div>
         </>
@@ -45,6 +46,7 @@ text-align: left;
 
 const Timestamp = styled.span`
 color: gray;
+width: auto;
 padding: 10px;
 font-size: 9px;
 position: absolute;
